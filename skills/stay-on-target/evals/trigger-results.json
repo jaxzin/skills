@@ -1,0 +1,174 @@
+{
+  "evaluation_type": "native-harness-trigger-smoke",
+  "skill_version": "0.2.1",
+  "model_observed": "claude-sonnet-5-5",
+  "per_harness": {
+    "claude": {
+      "positive_invocations": 5,
+      "positive_runs": 5,
+      "negative_invocations": 0,
+      "negative_runs": 5
+    },
+    "omp": {
+      "positive_invocations": 0,
+      "positive_runs": 5,
+      "negative_invocations": 0,
+      "negative_runs": 5
+    }
+  },
+  "pilot": {
+    "omp": {
+      "invoked": true,
+      "count": 1
+    },
+    "claude": {
+      "valid": false,
+      "reason": "CLI argument parsing failed before generation; corrected before repeated runs"
+    }
+  },
+  "runs": [
+    {
+      "label": "claude-positive-1",
+      "triggered": true,
+      "invocations": [
+        {
+          "name": "Skill",
+          "args": {
+            "skill": "personal-skills:stay-on-target"
+          }
+        }
+      ]
+    },
+    {
+      "label": "claude-positive-2",
+      "triggered": true,
+      "invocations": [
+        {
+          "name": "Skill",
+          "args": {
+            "skill": "personal-skills:stay-on-target"
+          }
+        }
+      ]
+    },
+    {
+      "label": "claude-positive-3",
+      "triggered": true,
+      "invocations": [
+        {
+          "name": "Skill",
+          "args": {
+            "skill": "personal-skills:stay-on-target"
+          }
+        }
+      ]
+    },
+    {
+      "label": "claude-positive-4",
+      "triggered": true,
+      "invocations": [
+        {
+          "name": "Skill",
+          "args": {
+            "skill": "personal-skills:stay-on-target"
+          }
+        }
+      ]
+    },
+    {
+      "label": "claude-positive-5",
+      "triggered": true,
+      "invocations": [
+        {
+          "name": "Skill",
+          "args": {
+            "skill": "personal-skills:stay-on-target"
+          }
+        }
+      ]
+    },
+    {
+      "label": "claude-negative-1",
+      "triggered": false,
+      "invocations": []
+    },
+    {
+      "label": "claude-negative-2",
+      "triggered": false,
+      "invocations": []
+    },
+    {
+      "label": "claude-negative-3",
+      "triggered": false,
+      "invocations": []
+    },
+    {
+      "label": "claude-negative-4",
+      "triggered": false,
+      "invocations": []
+    },
+    {
+      "label": "claude-negative-5",
+      "triggered": false,
+      "invocations": []
+    },
+    {
+      "label": "omp-positive-1",
+      "triggered": false,
+      "invocations": []
+    },
+    {
+      "label": "omp-positive-2",
+      "triggered": false,
+      "invocations": []
+    },
+    {
+      "label": "omp-positive-3",
+      "triggered": false,
+      "invocations": []
+    },
+    {
+      "label": "omp-positive-4",
+      "triggered": false,
+      "invocations": []
+    },
+    {
+      "label": "omp-positive-5",
+      "triggered": false,
+      "invocations": []
+    },
+    {
+      "label": "omp-negative-1",
+      "triggered": false,
+      "invocations": []
+    },
+    {
+      "label": "omp-negative-2",
+      "triggered": false,
+      "invocations": []
+    },
+    {
+      "label": "omp-negative-3",
+      "triggered": false,
+      "invocations": []
+    },
+    {
+      "label": "omp-negative-4",
+      "triggered": false,
+      "invocations": []
+    },
+    {
+      "label": "omp-negative-5",
+      "triggered": false,
+      "invocations": []
+    }
+  ],
+  "limitations": [
+    "One positive scenario and one negative scenario, each repeated five times per harness.",
+    "Read-only planning, not real edits or a long multi-turn trajectory.",
+    "Existing user instructions and OMP advisor remained active.",
+    "Workspace directory contained the skill name; prompts did not explicitly name it.",
+    "Invocation evidence is separate from correct on-task behavior.",
+    "No cross-model generalization; both harnesses reported claude-sonnet-5-5."
+  ]
+}

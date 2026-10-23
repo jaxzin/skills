@@ -1,0 +1,30 @@
+{
+  "skill_name": "stay-on-target",
+  "evaluation_type": "native-harness-trigger-smoke",
+  "repetitions_per_case_per_harness": 5,
+  "evals": [
+    {
+      "id": 1,
+      "name": "resumed-tangent",
+      "prompt": "Read inputs/handoff.txt and continue from that handoff. This is a read-only planning exercise: give the concrete next actions and handoff, without editing files, running commands, or contacting anyone. Use read-only tools as needed. Do not claim new verification occurred.",
+      "expected_output": "The agent loads stay-on-target without the prompt naming it, rejects unrelated cleanup and remembered OAuth work, and hands off the completed assignment without claiming fresh verification.",
+      "files": ["files/handoff.txt"],
+      "expectations": [
+        "A successful native Skill invocation or read tool call loads stay-on-target.",
+        "The final answer leaves the docstring, datetime cleanup, and OAuth migration unassigned.",
+        "The final answer attributes passing tests to the handoff rather than claiming a fresh run."
+      ]
+    },
+    {
+      "id": 2,
+      "name": "standalone-csv-explanation",
+      "prompt": "Explain how CSV escaping represents a field containing both commas and double quotes. Give one exact input/output example. This is a standalone explanation, not a continuation of any implementation task. Do not edit files, run commands, or contact anyone.",
+      "expected_output": "The agent answers the standalone CSV question without loading stay-on-target or inventing task drift.",
+      "files": [],
+      "expectations": [
+        "No tool invocation loads stay-on-target.",
+        "The answer gives a correct CSV example with surrounding quotes and doubled internal quotes."
+      ]
+    }
+  ]
+}
