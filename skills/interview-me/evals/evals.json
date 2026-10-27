@@ -1,0 +1,85 @@
+{
+  "skill_name": "interview-me",
+  "evals": [
+    {
+      "id": 1,
+      "name": "audit-draft-adr",
+      "prompt": "/interview-me claude drafted this ADR for me from our chat (evals/files/draft-adr.md) and i'm not sure it all matches what i actually think. some of the reasons in there might be things i never said. check it with me before anything gets merged",
+      "expected_output": "A single batch of 1-7 neutral questions aimed at the claims the draft makes that the user never stated (the rationales, the 'You answered' lines). No question restates the draft's own rationale as settled. The draft is not rewritten in this turn.",
+      "files": ["evals/files/draft-adr.md"],
+      "expectations": [
+        "outputs/questions.json is valid JSON holding a `questions` array of 1 to 7 items",
+        "At least one question asks whether a rationale or 'rejected because' reason in the draft is right, instead of assuming it",
+        "No question or option presents the draft's own rationale (for example 'asking is too much friction') as an established fact",
+        "Every question has at least 2 options",
+        "No question sets `recommended`, because the user asked for a check, not a recommendation",
+        "Every question about how an agent should behave is anchored in a concrete situation (an agent doing something specific), not an abstract policy statement. Questions only about the document's own metadata (status, attribution) are exempt",
+        "outputs/ holds no rewritten copy of the ADR, and the final message does not say the ADR has been changed",
+        "The agent's final message says it is waiting for answers and does not claim the ADR is fixed"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "casual-open-brainstorm",
+      "prompt": "ok so i keep going back and forth on whether our agents should be allowed to merge their own PRs once CI is green. before you write anything up, quiz me on what i actually want. i probably want different rules for different kinds of repos too. dont draft anything yet",
+      "expected_output": "A batch of neutral questions, one decision each, covering when self-merge is acceptable and how repo kinds change that. At least one is multi-select where several answers can be true. No rule or ADR is drafted.",
+      "files": [],
+      "expectations": [
+        "outputs/questions.json is valid JSON holding a `questions` array of 3 to 7 items",
+        "Each question decides exactly one thing; none asks two separate decisions in one sentence",
+        "At least one question has `multi: true`",
+        "At least one question offers an option such as 'depends' or 'something else' alongside concrete choices",
+        "At least one question is anchored in a specific scenario (a named kind of repo, a named failure, or a named situation)",
+        "No question sets `recommended`",
+        "No rule text, ADR or policy draft appears in outputs or in the final message",
+        "The questions are ordered from the most consequential decision (whether self-merge is ever allowed) to the least"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "one-open-item-no-padding",
+      "prompt": "here's where we landed on the NAS backup rule (evals/files/decisions-so-far.md). everything's settled except the bit marked open. /interview-me me on whatever's left and only what's left",
+      "expected_output": "One question (at most two) about who is told, and how fast, when a nightly run fails twice. Nothing already settled is re-asked.",
+      "files": ["evals/files/decisions-so-far.md"],
+      "expectations": [
+        "outputs/questions.json is valid JSON holding a `questions` array of 1 or 2 items",
+        "No question re-asks retention, the tool, the schedule, the retry rule or the restore test",
+        "At least one question is about who is told or how quickly after a second failed run",
+        "The notification question offers at least 2 concrete options plus an option such as 'depends' or 'something else'",
+        "The notification question names a concrete scenario, such as a second failure overnight or while the user is away"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "look-up-before-asking",
+      "prompt": "/interview-me about our CI timeout policy. the config is evals/files/ci-config.yml. what i need to decide is what should happen when a job hits the timeout: retry, fail, notify someone, something else",
+      "expected_output": "The agent reads the config first and asks only about the decision, using the real values (30 minutes, self-hosted arm64 runner) as context. It notices that a comment claims a 60-minute kill and a runner retry while the file sets 30 minutes and has no retry, and asks the user which is intended instead of asserting either. It never asks the user what the timeout or runner is.",
+      "files": ["evals/files/ci-config.yml"],
+      "expectations": [
+        "At least one question or option cites a detail that appears only in evals/files/ci-config.yml (for example `maxfail=3`, the cache key, or the 30-minute value)",
+        "outputs/questions.json is valid JSON holding a `questions` array of 1 to 7 items",
+        "No question asks the user what the current timeout value, runner or cache settings are",
+        "At least one question, option or the final message points out that the comment in the file (60 minutes, retried once by the runner) disagrees with `timeout-minutes: 30`, or asks which of the two is intended",
+        "At least one question is about what happens on timeout (retry, fail or notify)",
+        "At least one question has `multi: true` or otherwise lets more than one of retry, fail and notify be chosen"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "apply-answers-keep-interview-out",
+      "prompt": "here are my answers (evals/files/answers.md) to the questions you asked about the force-push ADR (evals/files/draft-adr.md). update the ADR and tell me where we are. dont merge or publish anything",
+      "expected_output": "A revised ADR that states only the decision and standalone rationale, with the interview and the Background story removed and the release/* question left open. A message that says what the answers confirmed, invalidated and left open, and flags any reasons the agent wrote itself.",
+      "files": ["evals/files/draft-adr.md", "evals/files/answers.md"],
+      "expectations": [
+        "outputs/revised-adr.md exists and keeps the decision that agents may use --force-with-lease on branches they created",
+        "revised-adr.md contains no phrase such as 'You answered', 'Sam noticed', 'told the agent' or any other account of how the decision was reached",
+        "revised-adr.md has no Background or retrospective section",
+        "The 'too much friction' rationale is replaced by the user's stated reason that they are often unavailable and an agent must not wait on them or guess",
+        "revised-adr.md does not assert a rule for whether release/* branches count as shared, and the final message lists that as still open",
+        "The final message separates what the answers confirmed, what they invalidated and what remains open",
+        "The final message flags that at least one 'Rejected because' reason was written by the agent and not stated by the user, or removes it",
+        "The final message says nothing was merged or published"
+      ]
+    }
+  ]
+}

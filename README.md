@@ -24,6 +24,7 @@ The CLI prompts for a target agent when one is not specified. Installation locat
 | Skill | When to use it |
 | --- | --- |
 | [eisenhower-matrix](skills/eisenhower-matrix/SKILL.md) | Several competing tasks, or a user asking to sort their own priorities, where order and what to drop must be decided. |
+| [interview-me](skills/interview-me/SKILL.md) | Settling open decisions with the user, or checking an earlier draft against what they actually want, using structured neutral questions. |
 | [stay-on-target](skills/stay-on-target/SKILL.md) | Memories, saved state, other skills, or discoveries are pulling an agent away from its current assignment. |
 | [technical-documentation](skills/technical-documentation/SKILL.md) | Writing or revising technical documentation that must describe verified, current behavior. |
 

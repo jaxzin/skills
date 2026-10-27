@@ -1,0 +1,18 @@
+name: build
+on:
+  pull_request:
+  push:
+    branches: [main]
+jobs:
+  test:
+    # Runs on the arm64 box. Jobs are killed after 60 minutes and retried once by the runner.
+    runs-on: [self-hosted, linux, arm64]
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: pip-${{ hashFiles('requirements.lock') }}
+      - run: pip install -r requirements.lock
+      - run: pytest -x --maxfail=3
