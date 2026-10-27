@@ -1,0 +1,22 @@
+[
+  {"query": "/interview-me i need to figure out what our on-call escalation rule should be, ask me what you need to know", "should_trigger": true, "split": "train"},
+  {"query": "ok before you write that ADR up, can you check with me what i actually decided? i think you filled in some reasons i never gave you", "should_trigger": true, "split": "train"},
+  {"query": "the PR description you wrote says a couple of things i never said. quiz me on what's actually right and then fix it", "should_trigger": true, "split": "train"},
+  {"query": "before drafting the runbook for restoring the postgres backup, ask me the open questions you have. i'd rather answer a batch of multiple choice than write paragraphs", "should_trigger": true, "split": "train"},
+  {"query": "i'm not sure what the retry policy should be for the sync job. don't pick for me, walk me through the options by asking me stuff", "should_trigger": true, "split": "train"},
+  {"query": "Next: set up the new deploy workflow for our infra repo. Several choices there are mine to make (environments, who approves prod, rollback). Settle those with me first, then implement.", "should_trigger": true, "split": "train"},
+  {"query": "can you sanity check your design doc against what i actually want? it feels like it drifted from what we talked about. ask me whatever you need", "should_trigger": true, "split": "validation"},
+  {"query": "i have like 3 ways to handle secret rotation on the nas and honestly can't tell which i prefer. interview me so we pin it down before you touch anything", "should_trigger": true, "split": "validation"},
+  {"query": "I want a rule for how agents handle it when I tell them to stop, but I can't articulate it yet. help me think it through by asking me questions", "should_trigger": true, "split": "validation"},
+  {"query": "i can't tell if the rule you wrote for the agents is too strict or too loose. throw a few scenarios at me and see where i land, then adjust it", "should_trigger": true, "split": "validation"},
+  {"query": "interview prep: give me 10 behavioral questions for a staff engineer loop at a fintech, with strong sample answers", "should_trigger": false, "split": "train"},
+  {"query": "can you write a user interview script for testing our new grafana dashboard with 5 customers? 20 minutes each", "should_trigger": false, "split": "train"},
+  {"query": "what's the retry policy currently set for the sync job? check the helm values in ~/projects/infra-repo", "should_trigger": false, "split": "train"},
+  {"query": "just pick the better of postgres and sqlite for this tiny CLI and build it, i trust your call", "should_trigger": false, "split": "train"},
+  {"query": "summarize what customers said in this survey export (~/Downloads/survey_q3_final.csv) and group the answers by theme", "should_trigger": false, "split": "train"},
+  {"query": "review this ADR for typos and make the headings consistent. don't change any of the decisions in it", "should_trigger": false, "split": "train"},
+  {"query": "how do i make the ask tool allow selecting more than one option in a question?", "should_trigger": false, "split": "validation"},
+  {"query": "write me a decision record for choosing Loki as the log sink. i already decided; the reasoning is: it's cheap, it's already running, grafana reads it natively", "should_trigger": false, "split": "validation"},
+  {"query": "what questions should i ask my manager in my 1:1 about getting promoted to staff? give me a list", "should_trigger": false, "split": "validation"},
+  {"query": "delete the merged branches in dotfiles. leave the unmerged ones alone and tell me which ones those are", "should_trigger": false, "split": "validation"}
+]
