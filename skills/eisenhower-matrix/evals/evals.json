@@ -1,0 +1,65 @@
+{
+  "skill_name": "eisenhower-matrix",
+  "evals": [
+    {
+      "id": 1,
+      "name": "agent-backlog",
+      "prompt": "ok I've got a bunch of stuff for you in this repo today: (1) the login page 500s for some users since this morning's deploy, (2) rename the `utils2` folder to something sensible, (3) our SOC2 auditor needs the access-log retention policy documented by Friday (it's Wednesday), (4) the README has a typo in the second paragraph, (5) migrate the whole test suite from Jest to Vitest sometime this quarter, (6) add a dark-mode toggle because the CEO mentioned it in passing, (7) the weekly dependency-bump PR needs review, it's been sitting a few days, (8) write the release notes for v2.3 which ships tomorrow and needs the login fix. just get going",
+      "expected_output": "The agent sorts the eight tasks into the four Eisenhower quadrants with a one-line rationale each, gives an ordering across and within quadrants, names what is dropped or deferred and why, and flags low-confidence placements. It does not start on tasks in listed order.",
+      "assertions": [
+        "The response groups the tasks under the four Eisenhower quadrants, each headed with its urgent/important combination (\"neither urgent nor important\" counts for the fourth)",
+        "Every one of the eight listed tasks is placed in a quadrant with a one-line rationale",
+        "Every one of the eight listed tasks has an explicit disposition (do, schedule, delegate, or drop); none is silently omitted",
+        "At least one placement is flagged as an assumption or low-confidence",
+        "The response gives an order that puts the login 500 and the v2.3 release notes before the README typo and the dark-mode toggle",
+        "Any task placed in the neither-urgent-nor-important quadrant is explicitly named as dropped, with a reason"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "own-priorities",
+      "prompt": "I'm overwhelmed. can you help me figure out what to work on? my list: finish the Q4 budget deck (CFO meeting Thursday), reply to 40 unread Slack threads, learn Rust, my passport expires in 5 weeks and I have a trip in 7, clean up my Notion workspace, 1:1 prep for tomorrow with my report who is considering leaving, renew the domain name (expires in 3 days), reorganize my bookshelf, read the new team-structure proposal (feedback due next Monday)",
+      "expected_output": "A draft four-quadrant sort of all nine items with rationale, an order, explicit disposition of every low-value item, and one consolidated batch of questions about the items it could not place confidently. No task work is started.",
+      "assertions": [
+        "The response groups the nine items under the four Eisenhower quadrants, each headed with its urgent/important combination (\"neither urgent nor important\" counts for the fourth)",
+        "Every one of the nine items has an explicit disposition; none is silently omitted",
+        "The response asks one consolidated batch of questions about items it could not place confidently, rather than asking throughout or asking none",
+        "The response does not draft task content such as a 1:1 agenda, deck outline, or passport checklist",
+        "The response places the 1:1 prep, domain renewal, and passport items as urgent"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "midwork-urgent-discovery",
+      "prompt": "[Conversation so far] User: \"Refactor parse_config() in config/loader.py to split the env-var handling out. Refactor only, please.\" You have finished the first two extractions and are running the test suite. [Tool output] tests/test_loader.py ... 14 passed. Also printed by the repo's monitor.sh in the same terminal: 'ALERT payments-webhook: HTTP 502 x38 in last 20m'. While reading reports/weekly.py you also noticed an off-by-one in the date range loop, and loader.py has a TODO about adding an LRU cache. Write your next message to the user, then say in one line what you do immediately after.",
+      "expected_output": "The agent keeps working on the refactor and does not switch tasks. It immediately surfaces the payments-webhook alert as a brief aside and offers the choice to rerun the matrix and re-sort or to defer. The off-by-one bug and the cache TODO are recorded on a Deferred list rather than acted on or silently ignored.",
+      "assertions": [
+        "The response continues the refactor and does not announce a switch to the payments-webhook, report-generator, or cache work",
+        "The response surfaces the payments-webhook alert to the user immediately",
+        "The response offers the user an explicit choice between re-running the prioritization (re-sorting tasks) and deferring the new task",
+        "The off-by-one bug and the cache TODO are recorded on a named deferred list",
+        "The response does not propose or perform fixes for the off-by-one bug or the cache TODO now"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "tiny-collection",
+      "prompt": "two quick things in this repo: fix the typo in the README title (\"Instalation\"), and bump the version in package.json to 1.4.1. both are small, go ahead",
+      "expected_output": "Two trivial tasks with no meaningful ordering choice: the agent states the order in one line (or simply does both) with no four-quadrant output.",
+      "assertions": [
+        "The response contains no four-quadrant grouping or quadrant headings",
+        "The response states an order for the two tasks in one line or simply does both, without a matrix"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "dependent-steps-near-miss",
+      "prompt": "I need to rename the `user_name` column to `username` in our Postgres schema. steps: add the new column, backfill it from the old one, update the ORM model and queries, then drop the old column. can you do it?",
+      "expected_output": "The agent treats this as one task with strictly dependent steps and proceeds in order. No Eisenhower matrix is produced.",
+      "assertions": [
+        "The response contains no four-quadrant grouping or quadrant headings",
+        "The response proceeds through the rename steps in the given dependent order (add, backfill, update code, drop)"
+      ]
+    }
+  ]
+}
